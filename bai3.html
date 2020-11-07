@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script
+            src="https://code.jquery.com/jquery-3.5.1.js"
+            integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+            crossorigin="anonymous"></script>
+</head>
+<body>
+    <ul></ul>
+</body>
+
+<script>
+    const data = [
+        {
+            name:'Nav 1',
+            children:[
+                {
+                    name:'Sub Nav 2',
+                    children:[
+                        {
+                            name:'Sub of Sub Nav 2'
+                        }
+                    ]
+                },
+                {
+                    name:'Sub Nav 2.1',
+                    children:[
+                        {
+                            name:'Sub of Sub Nav 2.1'
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            name:'Nav 1',
+            children:[
+                {
+                    name:'Sub Nav 2',
+                    children:[
+                        {
+                            name:'Sub of Sub Nav 2'
+                        }
+                    ]
+                },
+                {
+                    name:'Sub Nav 2.1',
+                    children:[
+                        {
+                            name:'Sub of Sub Nav 2.1'
+                        }
+                    ]
+                }
+            ]
+        }
+    ];
+
+
+    function generateNode(data,firstNode = false) {
+        let content = '<ul>';
+        if(firstNode==true){
+            content = '';
+        }
+        let li = '';
+        for (let i = 0; i < data.length; i++) {
+            let name = data[i].name;
+            let child = '';
+            li = li+`<li><a>${name}</a>`;
+            if (data[i].children!=undefined &&
+                data[i].children.length > 0) {
+                child = generateNode(data[i].children);
+            }
+            li = li+ child +`</li>`;
+        }
+
+        content = content+`${li}</ul>`;
+
+        if(firstNode==true){
+            content = li;
+        }
+        return content;
+    }
+
+    let nodes = generateNode(data,true);
+    console.log(nodes);
+    $('ul').html(nodes);
+</script>
+</html>
